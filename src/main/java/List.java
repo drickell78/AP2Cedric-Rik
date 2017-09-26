@@ -1,7 +1,7 @@
 public class List<E extends Comparable> implements ListInterface<E>{
 
     private class Node {
-        //asshats
+
         E data;
         Node prior,
                 next;
