@@ -19,33 +19,35 @@ public class List<E extends Comparable> implements ListInterface <E> {
     }
     
     List() {
-    	current = null;
-    	head = null;
-    	tail = null;
-    	numberOfElements = 0;
+    	
     }
 
     public boolean isEmpty() {
         return head == null;
     }
 
-    public ListInterface<E> init() {
-        return null;
+    public List<E> init() {
+    	current = null;
+    	head = null;
+    	tail = null;
+    	numberOfElements = 0;
+    	
+        return this;
     }
 
     public int size() {
-        return 0;
+        return numberOfElements;
     }
 
-    public ListInterface<E> insert(E d) {
+    public List<E> insert(E d) {
         return null;
     }
 
     public E retrieve() {
-        return null;
+        return isEmpty() == true ? null : current.data;
     }
 
-    public ListInterface<E> remove() {
+    public List<E> remove() {
         return null;
     }
 
@@ -69,7 +71,7 @@ public class List<E extends Comparable> implements ListInterface <E> {
         return false;
     }
 
-    public ListInterface<E> copy() {
+    public List<E> copy() {
         return null;
     }
 }
