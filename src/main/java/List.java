@@ -1,3 +1,4 @@
+
 public class List<E extends Comparable> implements ListInterface <E> {
 	Node current, head, tail;
 	int numberOfElements;
@@ -15,7 +16,6 @@ public class List<E extends Comparable> implements ListInterface <E> {
             this.prior = prior;
             this.next = next;
         }
-
     }
     
     List() {
@@ -40,7 +40,36 @@ public class List<E extends Comparable> implements ListInterface <E> {
     }
 
     public List<E> insert(E d) {
-        return null;
+    	Node n = new Node(d);
+    	
+    	if (isEmpty()) {
+    		current = n;
+    		head = n;
+    		tail = n;
+    	}
+    	else if (d.compareTo(current.data) == -1) {
+    		while (d.compareTo(current.data) != 1) {
+    			current = current.prior;
+    		}
+    		Node temp = current.next;
+    		current.next = n;
+    		n.prior = current;
+    		n.next = temp;
+    		temp.prior = n;
+    	}
+    	else if (d.compareTo(current.data) == 1) {
+    		while (d.compareTo(current.data) != -1) {
+    			current = current.next;
+    		}
+    		Node temp = current.prior;
+    		current.prior = n;
+    		n.next = current;
+    		n.prior = temp;
+    		temp.next = n;
+    	}
+    	numberOfElements ++;
+    	
+        return this;
     }
 
     public E retrieve() {
