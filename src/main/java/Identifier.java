@@ -1,8 +1,16 @@
 class Identifier{
 
+  String name;
+
   Identifier(){
 
-    String name;
+
+
+  }
+
+  void nameSet(String name){
+
+    this.name = name;
 
   }
 

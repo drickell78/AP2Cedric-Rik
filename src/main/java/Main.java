@@ -2,6 +2,14 @@ import java.util.HashMap;
 
 public class Main {
 
+    public HashMap<Identifier, Set> setMap;
+
+    Main(){
+
+        setMap = new HashMap();
+
+    }
+
     private void start() {
         // Create a scanner on System.in
         
