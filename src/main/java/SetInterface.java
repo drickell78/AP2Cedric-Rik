@@ -1,18 +1,12 @@
-interface SetInterface<E extends comparable> {
+import java.math.BigInteger;
 
-  SetInterface(){
-  
-  }
+interface SetInterface<E extends Comparable> {
 
-  E get(int index){
-    return null;
-  }
+  E get(int index);
 
-  void set(int index, E data){
-    
-  }
+  void set(int index, E data);
 
-  int size(){ return 0;}
+  int size();
 
   
 
