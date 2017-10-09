@@ -1,5 +1,6 @@
 
 public class List<E extends Comparable> implements ListInterface <E> {
+	
 	Node current, head, tail;
 	int numberOfElements;
 
@@ -19,20 +20,18 @@ public class List<E extends Comparable> implements ListInterface <E> {
     }
     
     List() {
-    	
+    	current = null;
+    	head = null;
+    	tail = null;
+    	numberOfElements = 0;
     }
 
     public boolean isEmpty() {
         return head == null;
     }
 
-    public List<E> init() {
-    	current = null;
-    	head = null;
-    	tail = null;
-    	numberOfElements = 0;
-    	
-        return this;
+    public List<E> init() {    	   	
+        return new List<E>();
     }
 
     public int size() {
@@ -43,9 +42,9 @@ public class List<E extends Comparable> implements ListInterface <E> {
     	Node n = new Node(d);
     	
     	if (isEmpty()) {
-    		current = n;
     		head = n;
     		tail = head;
+    		current = n;
     	}
     	else if (size() == 1) {
     		if (d.compareTo(current.data) == -1) {
@@ -63,7 +62,7 @@ public class List<E extends Comparable> implements ListInterface <E> {
     	}
     	else if (d.compareTo(current.data) == -1) {
     		while (d.compareTo(current.data) != 1 || current != null) {
-    			current = current.prior;
+    			goToPrevious();
     		}
     		Node temp = current.next;
     		current.next = n;
@@ -74,7 +73,7 @@ public class List<E extends Comparable> implements ListInterface <E> {
     	}
     	else if (d.compareTo(current.data) == 1) {
     		while (d.compareTo(current.data) != -1 || current != null) {
-    			current = current.next;
+    			goToNext();
     		}
     		Node temp = current.prior;
     		current.prior = n;
@@ -122,7 +121,23 @@ public class List<E extends Comparable> implements ListInterface <E> {
     }
 
     public boolean find(E d) {
-        return false;
+    	if (isEmpty()) {
+    		return false;
+    	}
+    	else if (current.data == d) {
+    		return true;
+    	}
+    	else if (d.compareTo(current.data) == -1) {
+    		while (d.compareTo(current.data) == -1) {
+    			goToPrevious();
+    		}
+    	}
+    	else if (d.compareTo(current.data) == 1) {
+    		while (d.compareTo(current.data) == 1) {
+    			goToNext();
+    		}
+    	}
+    	return current.data == d;
     }
 
     public boolean goToFirst() {
@@ -166,6 +181,7 @@ public class List<E extends Comparable> implements ListInterface <E> {
     }
 
     public List<E> copy() {
-        return null;
+    	List<E> copy = this;
+        return copy;
     }
 }
