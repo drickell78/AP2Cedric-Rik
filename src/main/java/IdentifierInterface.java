@@ -1,0 +1,9 @@
+interface IdentifierInterface{
+
+  IdentifierInterface(){
+  
+  }
+
+  
+
+}
