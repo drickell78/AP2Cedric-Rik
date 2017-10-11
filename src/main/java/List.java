@@ -19,19 +19,18 @@ public class List<E extends Comparable> implements ListInterface <E> {
         }
     }
     
-    List() {
-    	current = null;
-    	head = null;
-    	tail = null;
-    	numberOfElements = 0;
-    }
+    List() {}
 
     public boolean isEmpty() {
         return head == null;
     }
 
-    public List<E> init() {    	   	
-        return new List<E>();
+    public List<E> init() {
+    	current = null;
+    	head = null;
+    	tail = null;
+    	numberOfElements = 0;  	
+        return this;
     }
 
     public int size() {
@@ -43,47 +42,42 @@ public class List<E extends Comparable> implements ListInterface <E> {
     	
     	if (isEmpty()) {
     		head = n;
-    		tail = head;
-    		current = n;
-    	}
-    	else if (size() == 1) {
-    		if (d.compareTo(current.data) == -1) {
+    		tail = n;
+    		current = n;   		
+    	}  	
+    	else if (d.compareTo(current.data) <= 0) {
+    		while (current != head && current.prior.data.compareTo(d) > 0) {
+    			goToPrevious();
+    		}
+    		if (current == head) {
     			head.prior = n;
     			n.next = head;
     			head = n;
     			current = head;
     		}
-    		else if (d.compareTo(current.data) == 1) {
+    		else {
+        		n.next = current;
+        		n.prior = current.prior;
+        		current = current.prior = current.prior.next = n;
+    		}
+    	}
+    	else if (d.compareTo(current.data) > 0) {
+    		while (current != tail && current.next.data.compareTo(d) < 0) {
+    			goToNext();
+    		}
+    		if (current == tail) {
     			tail.next = n;
     			n.prior = tail;
     			tail = n;
     			current = tail;
     		}
+    		else {
+        		n.prior = current;
+        		n.next = current.next;
+        		current = current.next = current.next.prior = n;
+    		} 			
     	}
-    	else if (d.compareTo(current.data) == -1) {
-    		while (d.compareTo(current.data) != 1 || current != null) {
-    			goToPrevious();
-    		}
-    		Node temp = current.next;
-    		current.next = n;
-    		n.prior = current;
-    		n.next = temp;
-    		temp.prior = n;
-    		current = n;
-    	}
-    	else if (d.compareTo(current.data) == 1) {
-    		while (d.compareTo(current.data) != -1 || current != null) {
-    			goToNext();
-    		}
-    		Node temp = current.prior;
-    		current.prior = n;
-    		n.next = current;
-    		n.prior = temp;
-    		temp.next = n;
-    		current = n;
-    	}
-    	numberOfElements ++;
-    	
+    	numberOfElements ++;   	
         return this;
     }
 
@@ -94,94 +88,83 @@ public class List<E extends Comparable> implements ListInterface <E> {
     public List<E> remove() {
     	if (!isEmpty()) {		
     		if (size() == 1) {
-    			head = null;
-    			tail = null;
-    			current = null;
+    			head = tail = current = null;
     		}
     		else if(current == head) {
-    			head = head.next;
-    			head.prior = null;
-    			current = head;
+    			current = head = head.next;
     		}
     		else if(current == tail) {
-    			tail = tail.prior;
-    			tail.next = null;
-    			current = tail;
+    			current = tail = tail.prior;
     		}
     		else {  		
-    			Node p = current.prior;
-    			Node n = current.next;    	
-    			p.next = n;
-    			n.prior = p;
-    			current = n;
+    			current.next.prior = current.prior;
+    			current.prior.next = current = current.next;
     		}
     		numberOfElements --;
+    		return this;
     	}   	
-        return this;
+    	return null;
     }
 
     public boolean find(E d) {
     	if (isEmpty()) {
     		return false;
     	}
-    	else if (current.data == d) {
+    	if (current.data == d) {
     		return true;
     	}
-    	else if (d.compareTo(current.data) == -1) {
-    		while (d.compareTo(current.data) == -1) {
+    	if (d.compareTo(current.data) < 0) {
+    		while (current != head && current.data != d) {
     			goToPrevious();
     		}
     	}
-    	else if (d.compareTo(current.data) == 1) {
-    		while (d.compareTo(current.data) == 1) {
+    	else if (d.compareTo(current.data) > 0) {
+    		while (current != tail && current.data != d) {
     			goToNext();
     		}
     	}
-    	return current.data == d;
+    	return d == current.data;
     }
 
     public boolean goToFirst() {
     	if (isEmpty()) {
     		return false;
     	}
-    	else {
-    		current = head;
-    		return true;
-    	}
+    	current = head;
+    	return true;
     }
 
     public boolean goToLast() {
     	if (isEmpty()) {
     		return false;
     	}
-    	else {
-    		current = tail;
-    		return true;
-    	}
+    	current = tail;
+    	return true;
     }
 
     public boolean goToNext() {
     	if (isEmpty() || current == tail) {
     		return false;
     	}
-    	else {
-    		current = current.next;
-    		return true;
-    	}
+    	current = current.next;
+    	return true;
     }
 
     public boolean goToPrevious() {
     	if (isEmpty() || current == head) {
     		return false;
     	}
-    	else {
-    		current = current.prior;
-    		return true;
-    	}
+    	current = current.prior;
+    	return true;
     }
 
     public List<E> copy() {
-    	List<E> copy = this;
+    	List<E> copy = new List<E>();
+    	goToFirst();
+    	for (int i = 0; i < size(); i++) {
+    		copy.insert(retrieve());
+    		goToNext();
+    	}
         return copy;
     }
 }
