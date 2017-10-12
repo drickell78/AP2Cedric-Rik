@@ -1,3 +1,4 @@
+// LAST VERSION 10-12-2017
 
 public class List<E extends Comparable> implements ListInterface <E> {
 	
