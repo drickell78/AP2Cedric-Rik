@@ -14,4 +14,12 @@ class Identifier{
 
   }
 
+  public int hashCode(){
+    name.hashCode();
+  }
+
+  public void equals(String name){
+    this.equals(name);
+    
+  }
 }
