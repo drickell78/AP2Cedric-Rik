@@ -26,8 +26,24 @@ class Set<E extends Comparable> implements SetInterface{
 
   }
 
-  public void set(int index, Comparable data) {
+  @Override
+  public Set union(Set setOne, Set setTwo) {
+    return null;
+  }
 
+  @Override
+  public Set intersection(Set setOne, Set setTwo) {
+    return null;
+  }
+
+  @Override
+  public Set complement(Set setOne, Set setTwo) {
+    return null;
+  }
+
+  @Override
+  public Set difference(Set setOne, Set setTwo) {
+    return null;
   }
 
   public int size() {

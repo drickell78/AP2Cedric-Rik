@@ -10,7 +10,13 @@ interface SetInterface<E extends Comparable> {
 
   void remove(int index);
 
-  void set(int index, E data);
+  Set union(Set setOne, Set setTwo);
+
+  Set intersection (Set setOne, Set setTwo);
+
+  Set complement (Set setOne, Set setTwo);
+
+  Set difference (Set setOne, Set setTwo);
 
   int size();
 

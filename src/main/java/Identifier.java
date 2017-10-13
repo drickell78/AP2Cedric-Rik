@@ -4,8 +4,10 @@ class Identifier{
 
   Identifier(){
 
+  }
 
-
+  Identifier init(){
+    return new Identifier();
   }
 
   void nameSet(String name){
@@ -17,10 +19,6 @@ class Identifier{
   @Override
   public int hashCode() {
 	  return name.hashCode();
-  }
-
-  public int hashCode(){
-    name.hashCode();
   }
 
   public void equals(String name){
