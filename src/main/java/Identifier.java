@@ -13,6 +13,11 @@ class Identifier{
     this.name = name;
 
   }
+  
+  @Override
+  public int hashCode() {
+	  return name.hashCode();
+  }
 
   public int hashCode(){
     name.hashCode();

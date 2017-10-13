@@ -111,9 +111,6 @@ public class List<E extends Comparable> implements ListInterface <E> {
     	if (isEmpty()) {
     		return false;
     	}
-    	if (current.data == d) {
-    		return true;
-    	}
     	if (d.compareTo(current.data) < 0) {
     		while (current != head && current.data != d) {
     			goToPrevious();
@@ -124,7 +121,7 @@ public class List<E extends Comparable> implements ListInterface <E> {
     			goToNext();
     		}
     	}
-    	return d == current.data;
+    	return current.data.compareTo(d) == 0;
     }
 
     public boolean goToFirst() {
