@@ -6,7 +6,7 @@ public class Main {
     Scanner in;
     public HashMap<Identifier, Set> setMap;
 
-    Main(){
+    Main() {
 
         in = new Scanner(System.in);
         setMap = new HashMap();

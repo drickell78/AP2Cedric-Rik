@@ -27,9 +27,7 @@ public class List<E extends Comparable> implements ListInterface <E> {
     }
 
     public List<E> init() {
-    	current = null;
-    	head = null;
-    	tail = null;
+    	current = head = tail = null;
     	numberOfElements = 0;  	
         return this;
     }
@@ -92,14 +90,19 @@ public class List<E extends Comparable> implements ListInterface <E> {
     			head = tail = current = null;
     		}
     		else if(current == head) {
-    			current = head = head.next;
+    			head = head.next;
+    			head.prior = null;
+    			current = head;
     		}
     		else if(current == tail) {
-    			current = tail = tail.prior;
+    			tail = tail.prior;
+    			tail.next = null;
+    			current = tail;
     		}
     		else {  		
+    			current.prior.next = current.next;
     			current.next.prior = current.prior;
-    			current.prior.next = current = current.next;
+    			current = current.next;
     		}
     		numberOfElements --;
     		return this;

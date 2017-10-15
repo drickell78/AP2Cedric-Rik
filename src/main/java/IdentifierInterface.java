@@ -1,9 +1,9 @@
 import java.util.HashMap;
 
-interface IdentifierInterface{
-
-    Identifier init();
-
-    void nameSet (String name);
-
+interface IdentifierInterface {
+    
+    public int hashCode();
+    
+    public boolean equals(String name);
+    
 }
