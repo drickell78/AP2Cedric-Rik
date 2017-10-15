@@ -83,7 +83,7 @@ public class List<E extends Comparable> implements ListInterface <E> {
     }
 
     public E retrieve() {
-        return isEmpty() == true ? null : current.data;
+        return isEmpty() ? null : current.data;
     }
 
     public List<E> remove() {

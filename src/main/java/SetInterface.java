@@ -4,11 +4,11 @@ interface SetInterface<E extends Comparable> {
 
   Set init();
 
-  E get(int index);
+  E get(E d);
 
-  void add(int index);
+  void add(E d);
 
-  void remove(int index);
+  void remove(E d);
 
   Set union(Set setOne, Set setTwo);
 
