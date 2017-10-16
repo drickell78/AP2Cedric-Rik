@@ -2,19 +2,21 @@ import java.math.BigInteger;
 
 interface SetInterface<E extends Comparable> {
 
-	/**	@precondition -
-	 *  @postcondition - A new set is initialized.
-	 *
-	 **/
-
-	SetInterface init();
-
 	/**	@precondition - The set is not empty.
 	 *  @postcondition - Returns the current element of the set. (Current node of the linked list)
 	 *
 	 **/
 
-	E get();
+	public E get();
+	
+	public boolean contains(E d);
+	
+	/**	@precondition -
+	 *  @postcondition - Returns the number of elements in the set.
+	 *
+	 **/
+	
+	int size();
 
 	/**	@precondition -
 	 *  @postcondition - Adds the requested element into the correct place in the set, such that the set remains sorted.
@@ -27,8 +29,12 @@ interface SetInterface<E extends Comparable> {
 	 *  @postcondition - Removes the requested element from the set.
 	 *
 	 **/
-
-	void remove(E d);
+	
+	void remove();
+	
+	boolean isEmpty();
+	
+	Set copy();
 
 	/**	@precondition - There are two sets.
 	 *  @postcondition - Returns the resultant set containing all of the elements of both sets.
@@ -59,11 +65,4 @@ interface SetInterface<E extends Comparable> {
 	 **/
 
 	Set difference (Set setOne, Set setTwo);
-
-	/**	@precondition -
-	 *  @postcondition - Returns the number of elements in the set.
-	 *
-	 **/
-
-	int size();
 }
