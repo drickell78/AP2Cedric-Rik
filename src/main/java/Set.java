@@ -39,36 +39,18 @@ public class Set<E extends Comparable> implements SetInterface {
 		}  
 		return result;
 	}
-	
-	Set isLonger (Set setOne, Set setTwo) {
-		if (setOne.size() > setTwo.size()) {
-			return setOne;
-		} else {
-			return setTwo;
-		}
-	}
-	
-	Set isShorter (Set setOne, Set setTwo) {
-		if (setOne.size() < setTwo.size()) {
-			return setOne;
-		} else {
-			return setTwo;
-		}
-	}
-	
+
 	@Override
 	public Set intersection(Set setOne, Set setTwo) {
 		Set result = init();
-		Set longer = isLonger(setOne,setTwo);
-		Set shorter = isShorter(setOne,setTwo);
-		shorter.setList.goToFirst();
-		longer.setList.goToFirst();
+		setOne.setList.goToFirst();
+		setOne.setList.goToFirst();
 		
-		for (int i = 0; i < longer.size(); i++) {
-			if (shorter.setList.find(longer.setList.retrieve())) {
-				result.add(longer.setList.retrieve());
+		for (int i = 0; i < setOne.size(); i++) {
+			if (setTwo.setList.find(setOne.setList.retrieve())) {
+				result.add(setOne.setList.retrieve());
 			}
-			longer.setList.goToNext();
+			setOne.setList.goToNext();
 		}
 		return result;
 	}
@@ -76,22 +58,42 @@ public class Set<E extends Comparable> implements SetInterface {
 	@Override
 	public Set complement(Set setOne, Set setTwo) {
 		Set result = init();
-		Set longer = isLonger(setOne,setTwo);
-		Set shorter = isShorter(setOne,setTwo);
-		shorter.setList.goToFirst();
-		longer.setList.goToFirst();
+		setOne.setList.goToFirst();
+		setTwo.setList.goToFirst();
 		
-		for(int i = 0; i < longer.size(); i++) {
-			if (!shorter.setList.find(longer.setList.retrieve())) {
-				result.add(longer.setList.retrieve());
+		for(int i = 0; i < setOne.size(); i++) {
+			if (!setTwo.setList.find(setOne.setList.retrieve())) {
+				result.add(setOne.setList.retrieve());
 			}
-			longer.setList.goToNext();
+			setOne.setList.goToNext();
 		}
 		return result;
 	}
 	
 	@Override
 	public Set difference(Set setOne, Set setTwo) {
+		Set result = init();
+		setOne.setList.goToFirst();
+		setTwo.setList.goToFirst();
+
+		for (int i = 0; i < setOne.size(); i++){
+			result.add(setOne.setList.retrieve());
+			setOne.setList.goToNext();
+		}
+		for (int i = 0; i < setTwo.size(); i++){
+			result.add(setTwo.setList.retrieve());
+			setTwo.setList.goToNext();
+		}
+		setOne.setList.goToFirst();
+		setTwo.setList.goToFirst();
+		for (int i = 0; i < setOne.size(); i++){
+			if (setTwo.setList.find(setOne.setList.retrieve())){
+				result.remove(setOne.setList.retrieve());
+			}
+			setOne.setList.goToNext();
+		}
+
+
 		return null;
 	}
 	
