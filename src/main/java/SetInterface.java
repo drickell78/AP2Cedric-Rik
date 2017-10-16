@@ -60,5 +60,10 @@ interface SetInterface<E extends Comparable> {
 
 	Set difference (Set setOne, Set setTwo);
 
+	/**	@precondition -
+	 *  @postcondition - Returns the number of elements in the set.
+	 *
+	 **/
+
 	int size();
 }

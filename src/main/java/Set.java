@@ -15,7 +15,10 @@ public class Set<E extends Comparable> implements SetInterface {
 	}
 
 	@Override
-	public Comparable get() {return setList.retrieve();}
+	public E get() {return setList.retrieve();}
+
+	public boolean hasElement(E d){ return setList.find(d);
+	}
 
 	@Override
 	public void add(Comparable d) {
@@ -36,7 +39,7 @@ public class Set<E extends Comparable> implements SetInterface {
 		setTwo.setList.goToFirst();
 
 		for (int i = 0; i < setTwo.setList.numberOfElements; i ++) {
-			result.add(setTwo.setList.retrieve());
+			result.add(setTwo.get());
 			setTwo.setList.goToNext();
 		}
 		return result;
@@ -49,7 +52,7 @@ public class Set<E extends Comparable> implements SetInterface {
 		setOne.setList.goToFirst();
 
 		for (int i = 0; i < setOne.size(); i++) {
-			if (setTwo.setList.find(setOne.get())) {
+			if (setTwo.hasElement(setOne.get())) {
 				result.add(setOne.get());
 			}
 			setOne.setList.goToNext();
@@ -64,7 +67,7 @@ public class Set<E extends Comparable> implements SetInterface {
 		setTwo.setList.goToFirst();
 
 		for(int i = 0; i < setOne.size(); i++) {
-			if (!setTwo.setList.find(setOne.get())) {
+			if (!setTwo.hasElement(setOne.get())) {
 				result.add(setOne.get());
 			}
 			setOne.setList.goToNext();
@@ -89,7 +92,7 @@ public class Set<E extends Comparable> implements SetInterface {
 		setOne.setList.goToFirst();
 		setTwo.setList.goToFirst();
 		for (int i = 0; i < setOne.size(); i++){
-			if (setTwo.setList.find(setOne.get())){
+			if (setTwo.hasElement(setOne.get())){
 				result.remove(setOne.get());
 			}
 			setOne.setList.goToNext();
