@@ -10,11 +10,11 @@ interface SetInterface<E extends Comparable> {
 	SetInterface init();
 
 	/**	@precondition - The set is not empty.
-	 *  @postcondition - Returns the requested element of the set.
+	 *  @postcondition - Returns the current element of the set. (Current node of the linked list)
 	 *
 	 **/
 
-	E get(E d);
+	E get();
 
 	/**	@precondition -
 	 *  @postcondition - Adds the requested element into the correct place in the set, such that the set remains sorted.
