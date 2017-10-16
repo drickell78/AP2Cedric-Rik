@@ -18,8 +18,8 @@ public class Set<E extends Comparable> implements SetInterface <E> {
 	}
 	
 	@Override
-	public void contains(E d) {
-		// TODO Auto-generated method stub	
+	public boolean contains(E d) {
+		return setList.find(d);
 	}
 	
 	@Override
@@ -28,21 +28,20 @@ public class Set<E extends Comparable> implements SetInterface <E> {
 	}
 	
 	@Override
-	public void remove(E d) {
-		setList.find(d);
+	public void remove() {
 		setList.remove();
 	}
 	
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return setList.isEmpty();
 	}
 	
 	@Override
 	public Set copy() {
-		// TODO Auto-generated method stub
-		return null;
+		Set copy = new Set();
+		copy.setList.copy();
+		return copy;
 	}
 	
 	@Override

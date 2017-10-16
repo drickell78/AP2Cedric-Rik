@@ -6,11 +6,11 @@ interface SetInterface<E extends Comparable> {
 	
 	public void add(E d);
 	
-	public void contains(E d);
+	public boolean contains(E d);
 	
 	public int size();
 	
-	public void remove(E d);
+	public void remove();
 	
 	public boolean isEmpty();
 	
