@@ -59,6 +59,6 @@ interface SetInterface<E extends Comparable> {
 	 **/
 
 	Set difference (Set setOne, Set setTwo);
-	
+
 	int size();
 }
