@@ -2,21 +2,25 @@ import java.math.BigInteger;
 
 interface SetInterface<E extends Comparable> {
 	
-	SetInterface init();
+	public E get();
 	
-	E get(E d);
+	public void add(E d);
 	
-	void add(E d);
+	public void contains(E d);
 	
-	void remove(E d);
+	public int size();
 	
-	Set union(Set setOne, Set setTwo);
+	public void remove(E d);
 	
-	Set intersection (Set setOne, Set setTwo);
+	public boolean isEmpty();
 	
-	Set complement (Set setOne, Set setTwo);
+	public Set copy();
 	
-	Set difference (Set setOne, Set setTwo);
+	public Set union(Set setOne, Set setTwo);
 	
-	int size();
+	public Set intersection (Set setOne, Set setTwo);
+	
+	public Set complement (Set setOne, Set setTwo);
+	
+	public Set difference (Set setOne, Set setTwo);	
 }

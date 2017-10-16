@@ -1,34 +1,53 @@
 
-public class Set<E extends Comparable> implements SetInterface {
+public class Set<E extends Comparable> implements SetInterface <E> {
 
-	List setList;
+	List<E> setList;
 	
-	Set(){}
-	
-	public Set init() {
-		setList = new List();
-		return this;
+	Set() {
+		setList.init();
 	}
 	
 	@Override
-	public Comparable get(Comparable d) {
-		return setList.find(d);
+	public E get() {
+		return setList.retrieve();
 	}
 	
 	@Override
-	public void add(Comparable d) {
+	public void add(E d) {
 		setList.insert(d);
 	}
 	
 	@Override
-	public void remove(Comparable d) {
+	public void contains(E d) {
+		// TODO Auto-generated method stub	
+	}
+	
+	@Override
+	public int size() {
+		return setList.size();
+	}
+	
+	@Override
+	public void remove(E d) {
 		setList.find(d);
 		setList.remove();
 	}
 	
 	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public Set copy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public Set union(Set setOne, Set setTwo) {
-		Set result = init();
+		Set result = new Set();
 		
 		result.setList = setOne.setList.copy();
 		setTwo.setList.goToFirst();
@@ -58,7 +77,7 @@ public class Set<E extends Comparable> implements SetInterface {
 	
 	@Override
 	public Set intersection(Set setOne, Set setTwo) {
-		Set result = init();
+		Set result = new Set();
 		Set longer = isLonger(setOne,setTwo);
 		Set shorter = isShorter(setOne,setTwo);
 		shorter.setList.goToFirst();
@@ -75,7 +94,7 @@ public class Set<E extends Comparable> implements SetInterface {
 	
 	@Override
 	public Set complement(Set setOne, Set setTwo) {
-		Set result = init();
+		Set result = new Set();
 		Set longer = isLonger(setOne,setTwo);
 		Set shorter = isShorter(setOne,setTwo);
 		shorter.setList.goToFirst();
@@ -95,7 +114,4 @@ public class Set<E extends Comparable> implements SetInterface {
 		return null;
 	}
 	
-	public int size() {
-		return setList.size();
-	}
 }
