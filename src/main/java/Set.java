@@ -2,11 +2,17 @@
 public class Set<E extends Comparable> implements SetInterface {
 
 	List setList;
+	E currentElement;
 	
-	Set(){}
+	Set(){
+
+		setList = new List();
+
+
+	}
 	
 	public Set init() {
-		setList = new List();
+
 		return this;
 	}
 	
@@ -62,8 +68,8 @@ public class Set<E extends Comparable> implements SetInterface {
 		setTwo.setList.goToFirst();
 		
 		for(int i = 0; i < setOne.size(); i++) {
-			if (!setTwo.setList.find(setOne.setList.retrieve())) {
-				result.add(setOne.setList.retrieve());
+			if (!setTwo.setList.find(setOne.get(setOne.setList.retrieve())) {
+				result.add(setOne.get(setOne.setList.retrieve()));
 			}
 			setOne.setList.goToNext();
 		}
@@ -77,7 +83,7 @@ public class Set<E extends Comparable> implements SetInterface {
 		setTwo.setList.goToFirst();
 
 		for (int i = 0; i < setOne.size(); i++){
-			result.add(setOne.setList.retrieve());
+			result.add(setOne.get(setOne.setList.retrieve()));
 			setOne.setList.goToNext();
 		}
 		for (int i = 0; i < setTwo.size(); i++){
@@ -87,8 +93,8 @@ public class Set<E extends Comparable> implements SetInterface {
 		setOne.setList.goToFirst();
 		setTwo.setList.goToFirst();
 		for (int i = 0; i < setOne.size(); i++){
-			if (setTwo.setList.find(setOne.setList.retrieve())){
-				result.remove(setOne.setList.retrieve());
+			if (setTwo.setList.find(setOne.get(setOne.setList.retrieve())){
+				result.remove(setOne.get(setOne.setList.retrieve()));
 			}
 			setOne.setList.goToNext();
 		}

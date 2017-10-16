@@ -4,6 +4,6 @@ interface IdentifierInterface {
     
     public int hashCode();
     
-    public boolean equals(String name);
+    public boolean equals(Object that);
     
 }
