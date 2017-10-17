@@ -40,7 +40,7 @@ interface SetInterface<E extends Comparable<E>> {
 	 *
 	 **/
 
-	Set<E> union(Set<E> setOne, Set<E> setTwo);
+	Set<E> union(Set<E> setTwo);
 
 	/**	@precondition - There are two sets.
 	 *  @postcondition - Returns the resultant set containing all the of the intersecting elements of both sets. Returns
@@ -48,14 +48,14 @@ interface SetInterface<E extends Comparable<E>> {
 	 *
 	 **/
 
-	Set<E> intersection (Set<E> setOne, Set<E> setTwo);
+	Set<E> intersection (Set<E> setTwo);
 
 	/**	@precondition - There are two sets.
 	 *  @postcondition - Returns the resultant set containing all of the elements NOT contained in the first set.
 	 *
 	 **/
 
-	Set<E> complement (Set<E> setOne, Set<E> setTwo);
+	Set<E> complement (Set<E> setTwo);
 
 	/**	@precondition - There are two sets.
 	 *  @postcondition - Returns the resultant set containing all of the elements of both sets except for the
@@ -63,5 +63,5 @@ interface SetInterface<E extends Comparable<E>> {
 	 *
 	 **/
 
-	Set<E> difference (Set<E> setOne, Set<E> setTwo);
+	Set<E> difference (Set<E> setTwo);
 }

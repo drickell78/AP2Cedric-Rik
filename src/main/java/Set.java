@@ -8,6 +8,19 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 		setList.init();
 	}
 
+	public String toString(){
+		setList.goToFirst();
+
+		String result = "";
+
+		for (int i = 0; i < size(); i++){
+			result += get() + " ";
+			setList.goToNext();
+		}
+
+		return result;
+	}
+
 	@Override
 	public E get() {
 		return (E) setList.retrieve();
@@ -25,13 +38,15 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 	
 	@Override
 	public void add(E d) {
-		setList.insert(d);
+		if (!this.contains(d)) {
+			setList.insert(d);
+		}
 	}
 
 	@Override
 	public void remove(E d) {
-		//setList.find(d);
-		//setList.remove();
+		setList.find(d);
+		setList.remove();
 	}
 	
 	@Override
@@ -47,10 +62,9 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 	}
 
 	@Override
-	public Set<E> union(Set<E> setOne, Set<E> setTwo) {
-		Set<E> result = new Set<E>();
+	public Set<E> union(Set<E> setTwo) {
+		Set result = this.copy();
 
-		result = setOne.copy();
 		setTwo.setList.goToFirst();
 
 		for (int i = 0; i < setTwo.size(); i ++) {
@@ -61,53 +75,49 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 	}
 
 	@Override
-	public Set<E> intersection(Set<E> setOne, Set<E> setTwo) {
+	public Set<E> intersection(Set<E> setTwo) {
 		Set<E> result = new Set<E>();
-		setOne.setList.goToFirst();
-		setOne.setList.goToFirst();
+		setTwo.setList.goToFirst();
 
-		for (int i = 0; i < setOne.size(); i++) {
-			if (setTwo.contains(setOne.get())) {
-				result.add(setOne.get());
+		for (int i = 0; i < setTwo.size(); i++) {
+			if (this.contains(setTwo.get())) {
+				result.add(setTwo.get());
 			}
-			setOne.setList.goToNext();
+			setTwo.setList.goToNext();
 		}
 		return result;
 	}
 
 	@Override
-	public Set<E> complement(Set<E> setOne, Set<E> setTwo) {
+	public Set<E> complement(Set<E> setTwo) {
 		Set<E> result = new Set<E>();
-		setOne.setList.goToFirst();
-		setTwo.setList.goToFirst();
+		this.setList.goToFirst();
 
-		for(int i = 0; i < setOne.size(); i++) {
-			if (!setTwo.contains(setOne.get())) {
-				result.add(setOne.get());
+		for(int i = 0; i < this.size(); i++) {
+			if (!setTwo.contains(this.get())) {
+				result.add(this.get());
 			}
-			setOne.setList.goToNext();
+			this.setList.goToNext();
 		}
 		return result;
 	}
 
 	@Override
-	public Set<E> difference(Set<E> setOne, Set<E> setTwo) {
-		Set<E> result = new Set<E>();
-		setOne.setList.goToFirst();
+	public Set<E> difference(Set<E> setTwo) {
+		Set<E> result = this.copy();
 		setTwo.setList.goToFirst();
 
-		result = setOne.copy();
 		for (int i = 0; i < setTwo.size(); i++){
 			result.add(setTwo.get());
 			setTwo.setList.goToNext();
 		}
-		setTwo.setList.goToFirst();
-		for (int i = 0; i < setOne.size(); i++){
-			if (setTwo.contains(setOne.get())){
-				result.remove(setOne.get());
+		this.setList.goToFirst();
+		for (int i = 0; i < this.size(); i++){
+			if (setTwo.contains(this.get())){
+				result.remove(this.get());
 			}
-			setOne.setList.goToNext();
+			this.setList.goToNext();
 		}
-		return null;
+		return result;
 	}
 }
