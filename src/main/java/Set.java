@@ -1,7 +1,7 @@
 
-public class Set<E extends Comparable> implements SetInterface <E> {
+public class Set<E extends Comparable<E>> implements SetInterface <E> {
 
-	List setList;
+	List<E> setList;
 
 	Set() {
 		setList.init();
@@ -38,15 +38,15 @@ public class Set<E extends Comparable> implements SetInterface <E> {
 	}
 	
 	@Override
-	public Set copy() {
-		Set copy = new Set();
+	public Set<E> copy() {
+		Set<E> copy = new Set<E>();
 		copy.setList = setList.copy();
 		return copy;
 	}
 
 	@Override
-	public Set union(Set setOne, Set setTwo) {
-		Set result = new Set();
+	public Set<E> union(Set<E> setOne, Set<E> setTwo) {
+		Set<E> result = new Set<E>();
 
 		result = setOne.copy();
 		setTwo.setList.goToFirst();
@@ -59,8 +59,8 @@ public class Set<E extends Comparable> implements SetInterface <E> {
 	}
 
 	@Override
-	public Set intersection(Set setOne, Set setTwo) {
-		Set result = new Set();
+	public Set<E> intersection(Set<E> setOne, Set<E> setTwo) {
+		Set<E> result = new Set<E>();
 		setOne.setList.goToFirst();
 		setOne.setList.goToFirst();
 
@@ -74,8 +74,8 @@ public class Set<E extends Comparable> implements SetInterface <E> {
 	}
 
 	@Override
-	public Set complement(Set setOne, Set setTwo) {
-		Set result = new Set();
+	public Set<E> complement(Set<E> setOne, Set<E> setTwo) {
+		Set<E> result = new Set<E>();
 		setOne.setList.goToFirst();
 		setTwo.setList.goToFirst();
 
@@ -89,8 +89,8 @@ public class Set<E extends Comparable> implements SetInterface <E> {
 	}
 
 	@Override
-	public Set difference(Set setOne, Set setTwo) {
-		Set result = new Set();
+	public Set<E> difference(Set<E> setOne, Set<E> setTwo) {
+		Set<E> result = new Set<E>();
 		setOne.setList.goToFirst();
 		setTwo.setList.goToFirst();
 

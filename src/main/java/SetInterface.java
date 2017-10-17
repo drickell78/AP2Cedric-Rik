@@ -1,6 +1,5 @@
-import java.math.BigInteger;
 
-interface SetInterface<E extends Comparable> {
+interface SetInterface<E extends Comparable<E>> {
 
 	/**	@precondition - The set is not empty.
 	 *  @postcondition - Returns the current element of the set. (Current node of the linked list)
@@ -34,14 +33,14 @@ interface SetInterface<E extends Comparable> {
 	
 	boolean isEmpty();
 	
-	Set copy();
+	Set<E> copy();
 
 	/**	@precondition - There are two sets.
 	 *  @postcondition - Returns the resultant set containing all of the elements of both sets.
 	 *
 	 **/
 
-	Set union(Set setOne, Set setTwo);
+	Set<E> union(Set<E> setOne, Set<E> setTwo);
 
 	/**	@precondition - There are two sets.
 	 *  @postcondition - Returns the resultant set containing all the of the intersecting elements of both sets. Returns
@@ -49,14 +48,14 @@ interface SetInterface<E extends Comparable> {
 	 *
 	 **/
 
-	Set intersection (Set setOne, Set setTwo);
+	Set<E> intersection (Set<E> setOne, Set<E> setTwo);
 
 	/**	@precondition - There are two sets.
 	 *  @postcondition - Returns the resultant set containing all of the elements NOT contained in the first set.
 	 *
 	 **/
 
-	Set complement (Set setOne, Set setTwo);
+	Set<E> complement (Set<E> setOne, Set<E> setTwo);
 
 	/**	@precondition - There are two sets.
 	 *  @postcondition - Returns the resultant set containing all of the elements of both sets except for the
@@ -64,5 +63,5 @@ interface SetInterface<E extends Comparable> {
 	 *
 	 **/
 
-	Set difference (Set setOne, Set setTwo);
+	Set<E> difference (Set<E> setOne, Set<E> setTwo);
 }

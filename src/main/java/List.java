@@ -1,6 +1,6 @@
 // LAST VERSION 10-12-2017
 
-public class List<E extends Comparable> implements ListInterface <E> {
+public class List<E extends Comparable<E>> implements ListInterface <E> {
 	
 	Node current, head, tail;
 	int numberOfElements;
