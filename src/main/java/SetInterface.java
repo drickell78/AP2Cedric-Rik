@@ -29,7 +29,7 @@ interface SetInterface<E extends Comparable<E>> {
 	 *
 	 **/
 	
-	void remove();
+	void remove(E d);
 	
 	boolean isEmpty();
 	

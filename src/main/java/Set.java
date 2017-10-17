@@ -4,6 +4,7 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 	List<E> setList;
 
 	Set() {
+		setList = new List<E>();
 		setList.init();
 	}
 
@@ -28,8 +29,9 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 	}
 
 	@Override
-	public void remove() {
-		setList.remove();
+	public void remove(E d) {
+		//setList.find(d);
+		//setList.remove();
 	}
 	
 	@Override
@@ -102,7 +104,7 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 		setTwo.setList.goToFirst();
 		for (int i = 0; i < setOne.size(); i++){
 			if (setTwo.contains(setOne.get())){
-				result.remove();
+				result.remove(setOne.get());
 			}
 			setOne.setList.goToNext();
 		}
