@@ -8,19 +8,6 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 		setList.init();
 	}
 
-	public String toString(){
-		setList.goToFirst();
-
-		String result = "";
-
-		for (int i = 0; i < size(); i++){
-			result += get() + " ";
-			setList.goToNext();
-		}
-
-		return result;
-	}
-
 	@Override
 	public E get() {
 		return (E) setList.retrieve();
@@ -63,7 +50,7 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 
 	@Override
 	public Set<E> union(Set<E> setTwo) {
-		Set result = this.copy();
+		Set<E> result = this.copy();
 
 		setTwo.setList.goToFirst();
 
