@@ -31,21 +31,65 @@ public class Main {
     	return in.hasNext("[a-zA-Z]");
     }
     
-    public void parseInput(String input) {
+    public void program() throws APException {
+    	while (in.hasNextLine()) {
+        	statement(in.nextLine());
+        }
+    }
+    
+    public void statement(String input) throws APException {
+    	if (nextCharIsLetter(in)) {
+    		assignment(input);
+    	}
+    	else if (nextCharIs(in,'?')) {
+    		printStatement(input);
+    	}
+    	else if (nextCharIs(in,'/')) {
+    		comment(input);
+    	}
+    	else {
+    		throw new APException("Incorrect input");
+    	}
+    }
+    
+    public void assignment(String input) throws APException {
+    	String id = "";
+    	String expression = "";
+    	while (in.hasNext()) {
+    		if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
+    			id += nextChar(in);
+    		}
+    		else if (nextCharIs(in, '=')) {
+    			return;
+    		}
+    		else {
+    			throw new APException("Invalid identifier");
+    		}
+    	}
+    	nextChar(in);
+    	while (in.hasNext()) {
+    		expression += nextChar(in);
+    	}
+    	expression(expression);
+    }
+    
+    public void expression(String input) {
     	
     }
     
-    public void interpreter() {
+    public void printStatement(String input) {
     	
     }
 
-    private void start() {
-        while (in.hasNextLine()) {
-        	parseInput(in.nextLine());
-        }
+    public void comment(String input) {
+    	
+    }
+    
+    private void start() throws APException {
+        program();
     }
 
-    public static void main(String[] argv) {
+    public static void main(String[] argv) throws APException {
         new Main().start();
     }
 }
