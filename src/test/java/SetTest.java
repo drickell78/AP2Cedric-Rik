@@ -33,9 +33,9 @@ public class SetTest {
     	String s1s3  = "1 2 3 4 5 7 8 ";
     	String s2s3 = "1 4 5 6 7 8 ";
     	
-    	assertEquals(s1s2, s1.union(s1,s2).toString());
-    	assertEquals(s1s3, s1.union(s1,s3).toString());
-    	assertEquals(s2s3, s2.union(s2,s3).toString());
+    	assertEquals(s1s2, s1.union(s2).toString());
+    	assertEquals(s1s3, s1.union(s3).toString());
+    	assertEquals(s2s3, s2.union(s3).toString());
     }
     
     @Test
@@ -44,9 +44,9 @@ public class SetTest {
     	String s1s3  = "1 ";
     	String s2s3 = "1 5 ";
     	
-    	assertEquals(s1s2, s1.intersection(s1,s2).toString());
-    	assertEquals(s1s3, s1.intersection(s1,s3).toString());
-    	assertEquals(s2s3, s2.intersection(s2,s3).toString());
+    	assertEquals(s1s2, s1.intersection(s2).toString());
+    	assertEquals(s1s3, s1.intersection(s3).toString());
+    	assertEquals(s2s3, s2.intersection(s3).toString());
     }
     
     @Test
@@ -58,12 +58,12 @@ public class SetTest {
     	String s3s1  = "5 7 8 ";
     	String s3s2 = "7 8 ";
     	
-    	assertEquals(s1s2, s1.complement(s1,s2).toString());
-    	assertEquals(s1s3, s1.complement(s1,s3).toString());
-    	assertEquals(s2s3, s2.complement(s2,s3).toString());
-    	assertEquals(s2s1, s2.complement(s2,s1).toString());
-    	assertEquals(s3s1, s3.complement(s3,s1).toString());
-    	assertEquals(s3s2, s3.complement(s3,s2).toString());
+    	assertEquals(s1s2, s1.complement(s2).toString());
+    	assertEquals(s1s3, s1.complement(s3).toString());
+    	assertEquals(s2s3, s2.complement(s3).toString());
+    	assertEquals(s2s1, s2.complement(s1).toString());
+    	assertEquals(s3s1, s3.complement(s1).toString());
+    	assertEquals(s3s2, s3.complement(s2).toString());
     }
     
     @Test
@@ -72,9 +72,9 @@ public class SetTest {
     	String s1s3  = "2 3 4 5 7 8 ";
     	String s2s3 = "4 6 7 8 ";
     	
-    	assertEquals(s1s2, s1.difference(s1,s2).toString());
-    	assertEquals(s1s3, s1.difference(s1,s3).toString());
-    	assertEquals(s2s3, s2.difference(s2,s3).toString());
+    	assertEquals(s1s2, s1.difference(s2).toString());
+    	assertEquals(s1s3, s1.difference(s3).toString());
+    	assertEquals(s2s3, s2.difference(s3).toString());
     }
     
     @Test
@@ -85,11 +85,11 @@ public class SetTest {
     	String test4 = "1 2 3 5 7 8 ";
     	String test5 = "";
     	
-    	assertEquals(test1, s1.union(s1,s2).intersection(s1,s3).toString());
-    	assertEquals(test2, s1.union(s1,s2).complement(s1,s3).toString());
-    	assertEquals(test3, s1.intersection(s1,s2).complement(s1,s3).toString());
-    	assertEquals(test4, s1.complement(s1,s2).union(s1,s3).toString());
-    	assertEquals(test5, s1.complement(s1,s2).intersection(s1,s3).toString());
+    	assertEquals(test1, s1.union(s2).intersection(s3).toString());
+    	assertEquals(test2, s1.union(s2).complement(s3).toString());
+    	assertEquals(test3, s1.intersection(s2).complement(s3).toString());
+    	assertEquals(test4, s1.complement(s2).union(s3).toString());
+    	assertEquals(test5, s1.complement(s2).intersection(s3).toString());
     }
 
     @Test
