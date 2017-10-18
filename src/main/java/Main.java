@@ -55,6 +55,7 @@ public class Main {
     public void assignment(String input) throws APException {
     	String id = "";
     	String expression = "";
+    	id += nextChar(in);
     	while (in.hasNext()) {
     		if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
     			id += nextChar(in);
@@ -66,22 +67,88 @@ public class Main {
     			throw new APException("Invalid identifier");
     		}
     	}
-    	nextChar(in);
+    	in.next();
     	while (in.hasNext()) {
     		expression += nextChar(in);
     	}
     	expression(expression);
     }
     
-    public void expression(String input) {
-    	
-    }
-    
     public void printStatement(String input) {
     	
     }
-
+    
     public void comment(String input) {
+    	
+    }
+    
+    public void identifier() {
+    	
+    }
+    
+    public void expression(String input) {
+    	String term = "";
+    	while (in.hasNext()) {
+    		if (!nextCharIs(in, '+')) {
+    			term += nextChar(in);
+    		}
+    		else {
+    			term(term);
+    			in.next();
+    			term = "";
+    		}
+    	}
+    }
+    
+    public void term(String input) {
+    	
+    }
+    
+    public void factor() {
+    	
+    }
+    
+    public void complexFactor() {
+    	
+    }
+    
+    public Set set() {
+    	return null;
+    }
+    
+    public void rowNaturalNumbers() {
+    	
+    }
+    
+    public void additiveOperator() {
+    	
+    }
+    
+    public void multiplicativeOperator() {
+    	
+    }
+    
+    public void naturalNumber() {
+    	
+    }
+    
+    public void positive_number() {
+    	
+    }
+    
+    public void number() {
+    	
+    }
+    
+    public void zero() {
+    	
+    }
+    
+    public void notZero() {
+    	
+    }
+    
+    public void letter() {
     	
     }
     

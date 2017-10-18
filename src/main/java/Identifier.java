@@ -1,9 +1,9 @@
 
 public class Identifier implements IdentifierInterface {
  
-	String name;
+	StringBuffer name;
 	
-	public Identifier (String name) {	  
+	public Identifier (StringBuffer name) {	  
 		this.name = name;
 	}
 	
