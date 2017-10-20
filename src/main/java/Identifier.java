@@ -8,7 +8,7 @@ public class Identifier implements IdentifierInterface {
 		this.name.append(c);
 	}
 
-	void addChar(char c){
+	public void addChar(char c){
 		name.append(c);
 	}
 

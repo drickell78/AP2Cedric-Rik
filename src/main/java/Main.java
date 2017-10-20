@@ -110,7 +110,6 @@ public class Main {
     
     public void printStatement(Scanner in){
         StringBuffer print = null;
-
     }
     
     public void comment(Scanner in) {
@@ -118,7 +117,6 @@ public class Main {
     }
     
     public Set expression(Scanner in, Identifier id) throws APException {
-        Set result = new Set();
 
     	while(in.hasNext()){
             if (nextCharIsLetter(in)){
@@ -126,28 +124,31 @@ public class Main {
                 writeName(in, identifier);
                 if (hashMap.containsKey(identifier) && !in.hasNext()){
                     return hashMap.get(identifier);
-                } else if (hashMap.containsKey(identifier) && in.hasNext()) {
-                    if (nextCharIs(in, '+')){
+                    } else if (hashMap.containsKey(identifier) && in.hasNext()) {
+                    if (nextCharIs(in, '+')) {
                         hashMap.get(identifier).union(expression(in, identifier));
-                    }else if (nextCharIs(in,'-')){
+                    } else if (nextCharIs(in,'-')){
                         hashMap.get(identifier).complement(expression(in, identifier));
                     } else if(nextCharIs(in, '|')){
                         hashMap.get(identifier).difference(expression(in, identifier));
+                    } else if (nextCharIs(in,')')){
+                        return hashMap.get(identifier);
                     } else {
                         throw new APException("Invalid input: you are trying to do an invalid operation on a set");
                     }
-
                 } else if (!hashMap.containsKey(identifier)){
                     throw new APException("Set does not exist");
                 }
             } else if (nextCharIs(in, '{') && !in.hasNext()){
                 hashMap.put(id, createSet(in));
             } else if (nextCharIs(in, '{') && in.hasNext()){
-
+                expression(in, id);
+            } else if (nextCharIs(in, '(')){
+                complexFactor(in);
             }
         }
-        term(in);
-        return result;
+
+        return hashMap.get(id);
     }
     
     public Set term(Scanner in) throws APException{
@@ -175,11 +176,22 @@ public class Main {
     }
     
     public Set factor(Scanner in) throws APException{
-       while(in.hasNext()){
-
+       if (nextCharIsLetter(in)){
+            Identifier identifier = new Identifier(nextChar(in));
+            writeName(in,identifier);
+            if (hashMap.containsKey(identifier)){
+                return hashMap.get(identifier);
+            } else {
+                throw new APException("Invalid input: Set does not exist");
+            }
+       } else if (nextCharIs(in, '{')){
+            createSet(in);
+       } else if (nextCharIs(in, '(')){
+            complexFactor(in);
+       } else {
+           throw new APException("Invalid input");
        }
-
-        return createSet(in);
+       return createSet(in);
     }
     
     public Set complexFactor(Scanner in) throws APException {
