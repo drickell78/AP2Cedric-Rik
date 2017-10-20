@@ -52,6 +52,7 @@ public class Main {
                 throw new APException("Invalid input");
             }
         }
+        removeSpaces(in);
 
     }
 
@@ -95,22 +96,18 @@ public class Main {
     public void assignment(Scanner in) throws APException {
 
         Identifier identifier = new Identifier(nextChar(in));
-        while (in.hasNext()) {
+        while (in.hasNext() && !nextCharIs(in, '=')) {
             if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
                 identifier.addChar(nextChar(in));
-            } else if (nextCharIs(in, '=')) {
-                return;
-            } else if (nextCharIs(in, ' ')) {
-                skipSpaces(in);
             } else {
                 throw new APException("Invalid identifier");
             }
         }
 
     	if (hashMap.containsKey(identifier)){
-    	    hashMap.replace(identifier, expression(in));
+    	    hashMap.replace(identifier, expression(in, identifier));
         } else {
-            hashMap.put(identifier, expression(in));
+            hashMap.put(identifier, expression(in, identifier));
         }
 
     }
@@ -124,37 +121,77 @@ public class Main {
     	in.nextLine();
     }
     
-    public Set expression(Scanner in) throws APException {
+    public Set expression(Scanner in, Identifier id) throws APException {
+        Set result = new Set();
 
-    	while(in.hasNext()){
+    	while(in.hasNext() && nextCharIs(in, '*')){
             if (nextCharIsLetter(in)){
-                skipSpaces(in);
-            } else if (nextCharIsLetter(in)){
                 Identifier identifier = new Identifier(nextChar(in));
                 writeName(in, identifier);
                 if (hashMap.containsKey(identifier) && !in.hasNext()){
                     return hashMap.get(identifier);
                 } else if (hashMap.containsKey(identifier) && in.hasNext()) {
+                    if (nextCharIs(in, '+')){
+                        hashMap.get(identifier).union(term(in));
+                    }else if (nextCharIs(in,'-')){
+                        hashMap.get(identifier).complement(term(in));
+                    } else if(nextCharIs(in, '|')){
+                        hashMap.get(identifier).difference(term(in));
+                    } else {
+                        throw new APException("Invalid input: you are trying to do an invalid operation on a set");
+                    }
 
                 } else if (!hashMap.containsKey(identifier)){
                     throw new APException("Set does not exist");
                 }
+            } else if (nextCharIs(in, '{')){
+                hashMap.put(id, createSet(in));
             }
         }
 
-        return term(in);
+        return result;
     }
     
     public Set term(Scanner in) throws APException{
-    	return factor(in);
+        Set result = new Set();
+
+        while(in.hasNext()){
+            if(nextCharIsLetter(in)){
+                Identifier identifier = new Identifier(nextChar(in));
+                writeName(in, identifier);
+                if (hashMap.containsKey(identifier)){
+                    if (nextCharIs(in, '*')){
+                        hashMap.get(identifier).intersection(factor(in));
+                    }
+                } else if (!hashMap.containsKey(identifier)){
+                    throw new APException("Invalid input: set does not exist");
+                }
+            } else if (nextCharIs(in, '{')){
+                createSet(in);
+            } else if (nextCharIs(in, '*')){
+                factor(in);
+            }
+        }
+
+        return result;
     }
     
     public Set factor(Scanner in) throws APException{
-       return createSet(in);
+       while(in.hasNext()){
+
+       }
+
+        return createSet(in);
     }
     
     public Set complexFactor(Scanner in) throws APException {
-    	return expression(in);
+    	while (in.hasNext() && !nextCharIs(in, ')')){
+    	    if (nextCharIs(in, '(')){
+    	        expression(in);
+            }
+        }
+
+        return factor(in);
     }
     
     public Set createSet(Scanner in) throws APException {
@@ -167,10 +204,10 @@ public class Main {
                 int number = in.nextInt();
                 result.add(number);
             } else {
-                throw new APException("Invalid Set Input");
+                throw new APException("Invalid Input: You are trying to add an invalid character into a set");
             }
         }
-        in.next();
+        nextChar(in);
     	return result;
     }
     
