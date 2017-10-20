@@ -11,6 +11,7 @@ public class Main {
     Main() {
 
         in = new Scanner(System.in);
+        in.useDelimiter("");
         hashMap = new HashMap<Identifier, Set<BigInteger>>();
 
     }
@@ -18,7 +19,10 @@ public class Main {
     char nextChar (Scanner in) {
     	return in.next().charAt(0);
     }
-    
+    boolean nextCharIsSpace(Scanner in){
+        return in.hasNext(" ");
+    }
+
     boolean nextCharIs(Scanner in, char c) {
     	return in.hasNext(Pattern.quote(c+""));
     }
@@ -33,87 +37,123 @@ public class Main {
     
     public void program() throws APException {
     	while (in.hasNextLine()) {
-        	statement(in.nextLine());
+        	statement(in);
         }
     }
+
+    void writeName(Scanner in, Identifier id){
+        while(nextCharIsLetter(in) || nextCharIsDigit(in)){
+            id.addChar(nextChar(in));
+        }
+    }
+
+    void skipSpaces(Scanner in){
+        while (in.hasNext() && nextCharIsSpace(in)){
+            nextChar(in);
+        }
+    }
+
     
-    public void statement(String input) throws APException {
-    	if (nextCharIsLetter(in)) {
-    		assignment(input);
+    public void statement(Scanner in) throws APException {
+
+        if (nextCharIsLetter(in)) {
+    		assignment(in);
     	}
     	else if (nextCharIs(in,'?')) {
-    		printStatement(input);
+    		printStatement(in);
     	}
     	else if (nextCharIs(in,'/')) {
-    		comment(input);
+    		comment(in);
     	}
     	else {
     		throw new APException("Incorrect input");
     	}
     }
     
-    public void assignment(String input) throws APException {
-    	String id = "";
-    	String expression = "";
-    	id += nextChar(in);
-    	while (in.hasNext()) {
-    		if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
-    			id += nextChar(in);
-    		}
-    		else if (nextCharIs(in, '=')) {
-    			return;
-    		}
-    		else {
-    			throw new APException("Invalid identifier");
-    		}
-    	}
-    	in.next();
-    	while (in.hasNext()) {
-    		expression += nextChar(in);
-    	}
-    	expression(expression);
+    public void assignment(Scanner in) throws APException {
+    	StringBuffer id = null;
+
+        Identifier identifier = new Identifier(nextChar(in));
+        while (in.hasNext()) {
+            if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
+                identifier.addChar(nextChar(in));
+            } else if (nextCharIs(in, '=')) {
+                return;
+            } else {
+                throw new APException("Invalid identifier");
+            }
+        }
+
+    	if (hashMap.containsKey(identifier)){
+    	    hashMap.replace(identifier, expression(in));
+        } else {
+            hashMap.put(identifier, expression(in));
+        }
+
     }
     
-    public void printStatement(String input) {
-    	
+    public void printStatement(Scanner in){
+        StringBuffer print = null;
+
     }
     
-    public void comment(String input) {
-    	
+    public void comment(Scanner in) {
+    	in.nextLine();
     }
     
     public void identifier() {
     	
     }
     
-    public void expression(String input) {
-    	String term = "";
-    	while (in.hasNext()) {
-    		if (!nextCharIs(in, '+')) {
-    			term += nextChar(in);
-    		}
-    		else {
-    			term(term);
-    			in.next();
-    			term = "";
-    		}
-    	}
+    public Set expression(Scanner in) throws APException {
+    	while(in.hasNext()){
+            if (nextCharIsSpace(in)){
+                skipSpaces(in);
+            } else if (nextCharIsLetter(in)){
+                Identifier identifier = new Identifier(nextChar(in));
+                writeName(in, identifier);
+                if (hashMap.containsKey(identifier) && !in.hasNext()){
+                    return hashMap.get(identifier);
+                } else if (hashMap.containsKey(identifier) && in.hasNext()) {
+                    
+                } else if (!hashMap.containsKey(identifier)){
+                    throw new APException("Set does not exist");
+                }
+
+            }
+
+        }
+
+        return term(in);
     }
     
-    public void term(String input) {
-    	
+    public Set term(Scanner in) {
+    	return factor(in);
     }
     
-    public void factor() {
-    	
+    public Set factor(Scanner in){
+        while (in.hasNext() && !nextCharIs())
     }
     
-    public void complexFactor() {
-    	
+    public Set complexFactor(Scanner in) {
+    	return expression(in);
     }
     
-    public Set set() {
-    	return null;
+    public Set createSet(Scanner in) throws APException {
+    	Set result = new Set();
+
+        while(in.hasNext() && !nextCharIs(in, '}')){
+            if(nextCharIs(in, ' ')){
+                skipSpaces(in);
+            } else if (nextCharIsDigit(in)) {
+                int number = in.nextInt();
+                result.add(number);
+            } else {
+                throw new APException("Invalid Set Input");
+            }
+        }
+        in.next();
+    	return result;
     }
     
     public void rowNaturalNumbers() {
