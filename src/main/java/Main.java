@@ -19,9 +19,6 @@ public class Main {
     char nextChar (Scanner in) {
     	return in.next().charAt(0);
     }
-    boolean nextCharIsSpace(Scanner in){
-        return in.hasNext(" ");
-    }
 
     boolean nextCharIs(Scanner in, char c) {
     	return in.hasNext(Pattern.quote(c+""));
@@ -37,7 +34,30 @@ public class Main {
     
     public void program() throws APException {
     	while (in.hasNextLine()) {
-        	statement(in);
+        	errorHandler(in);
+        }
+    }
+
+    public void errorHandler(Scanner in) throws APException{
+        String line = in.nextLine();
+        Scanner errorScanner = new Scanner(line);
+        String last;
+        String next = errorScanner.next();
+        while(errorScanner.hasNext()){
+            last = next;
+            next = errorScanner.next();
+            char lastChar = last.charAt(last.length()-1); // The last character of the previous identifier/number
+            char firstChar = next.charAt(0);              // The first character of the next identifier/number
+            if ((Character.isDigit(lastChar) || Character.isLetter(lastChar)) && (Character.isDigit(firstChar) || Character.isLetter(firstChar))){
+                throw new APException("Invalid input");
+            }
+        }
+
+    }
+
+    private void skipSpaces(Scanner in) throws APException{
+        while (in.hasNext() && nextCharIs(in, ' ')){
+            nextChar(in);
         }
     }
 
@@ -47,10 +67,12 @@ public class Main {
         }
     }
 
-    void skipSpaces(Scanner in){
-        while (in.hasNext() && nextCharIsSpace(in)){
-            nextChar(in);
-        }
+    void removeSpaces(Scanner in) throws APException{
+        String line = in.nextLine();
+        line = line.replace(" ", "");
+        Scanner lineScanner = new Scanner(line);
+        lineScanner.useDelimiter("");
+        statement(lineScanner);
     }
 
     
@@ -71,7 +93,6 @@ public class Main {
     }
     
     public void assignment(Scanner in) throws APException {
-    	StringBuffer id = null;
 
         Identifier identifier = new Identifier(nextChar(in));
         while (in.hasNext()) {
@@ -79,6 +100,8 @@ public class Main {
                 identifier.addChar(nextChar(in));
             } else if (nextCharIs(in, '=')) {
                 return;
+            } else if (nextCharIs(in, ' ')) {
+                skipSpaces(in);
             } else {
                 throw new APException("Invalid identifier");
             }
@@ -101,13 +124,10 @@ public class Main {
     	in.nextLine();
     }
     
-    public void identifier() {
-    	
-    }
-    
     public Set expression(Scanner in) throws APException {
+
     	while(in.hasNext()){
-            if (nextCharIsSpace(in)){
+            if (nextCharIsLetter(in)){
                 skipSpaces(in);
             } else if (nextCharIsLetter(in)){
                 Identifier identifier = new Identifier(nextChar(in));
@@ -115,27 +135,25 @@ public class Main {
                 if (hashMap.containsKey(identifier) && !in.hasNext()){
                     return hashMap.get(identifier);
                 } else if (hashMap.containsKey(identifier) && in.hasNext()) {
-                    
+
                 } else if (!hashMap.containsKey(identifier)){
                     throw new APException("Set does not exist");
                 }
-
             }
-
         }
 
         return term(in);
     }
     
-    public Set term(Scanner in) {
+    public Set term(Scanner in) throws APException{
     	return factor(in);
     }
     
-    public Set factor(Scanner in){
-        while (in.hasNext() && !nextCharIs())
+    public Set factor(Scanner in) throws APException{
+       return createSet(in);
     }
     
-    public Set complexFactor(Scanner in) {
+    public Set complexFactor(Scanner in) throws APException {
     	return expression(in);
     }
     
@@ -154,42 +172,6 @@ public class Main {
         }
         in.next();
     	return result;
-    }
-    
-    public void rowNaturalNumbers() {
-    	
-    }
-    
-    public void additiveOperator() {
-    	
-    }
-    
-    public void multiplicativeOperator() {
-    	
-    }
-    
-    public void naturalNumber() {
-    	
-    }
-    
-    public void positive_number() {
-    	
-    }
-    
-    public void number() {
-    	
-    }
-    
-    public void zero() {
-    	
-    }
-    
-    public void notZero() {
-    	
-    }
-    
-    public void letter() {
-    	
     }
     
     private void start() throws APException {
