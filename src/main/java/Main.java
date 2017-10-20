@@ -56,12 +56,6 @@ public class Main {
 
     }
 
-    private void skipSpaces(Scanner in) throws APException{
-        while (in.hasNext() && nextCharIs(in, ' ')){
-            nextChar(in);
-        }
-    }
-
     void writeName(Scanner in, Identifier id){
         while(nextCharIsLetter(in) || nextCharIsDigit(in)){
             id.addChar(nextChar(in));
@@ -99,6 +93,8 @@ public class Main {
         while (in.hasNext() && !nextCharIs(in, '=')) {
             if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
                 identifier.addChar(nextChar(in));
+            } else if (nextCharIs(in, '(')) {
+                complexFactor(in);
             } else {
                 throw new APException("Invalid identifier");
             }
@@ -124,7 +120,7 @@ public class Main {
     public Set expression(Scanner in, Identifier id) throws APException {
         Set result = new Set();
 
-    	while(in.hasNext() && nextCharIs(in, '*')){
+    	while(in.hasNext()){
             if (nextCharIsLetter(in)){
                 Identifier identifier = new Identifier(nextChar(in));
                 writeName(in, identifier);
@@ -144,8 +140,10 @@ public class Main {
                 } else if (!hashMap.containsKey(identifier)){
                     throw new APException("Set does not exist");
                 }
-            } else if (nextCharIs(in, '{')){
+            } else if (nextCharIs(in, '{') && !in.hasNext()){
                 hashMap.put(id, createSet(in));
+            } else if (nextCharIs(in, '{') && in.hasNext()){
+
             }
         }
         term(in);
@@ -185,22 +183,15 @@ public class Main {
     }
     
     public Set complexFactor(Scanner in) throws APException {
-    	while (in.hasNext() && !nextCharIs(in, ')')){
-    	    if (nextCharIs(in, '(')){
-    	        expression(in);
-            }
-        }
-
-        return factor(in);
+    	Identifier identifier = new Identifier(nextChar(in));
+        return expression(in, identifier);
     }
     
     public Set createSet(Scanner in) throws APException {
     	Set result = new Set();
 
         while(in.hasNext() && !nextCharIs(in, '}')){
-            if(nextCharIs(in, ' ')){
-                skipSpaces(in);
-            } else if (nextCharIsDigit(in)) {
+            if (nextCharIsDigit(in)) {
                 int number = in.nextInt();
                 result.add(number);
             } else {
