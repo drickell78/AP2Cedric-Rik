@@ -48,22 +48,14 @@ public class Set<E extends Comparable<E>> implements SetInterface <E> {
 		return copy;
 	}
 	
+	@Override
 	public void firstElement() {
 		setList.goToFirst();
 	}
 	
+	@Override
 	public void next() {
 		setList.goToNext();
-	}
-	
-	public String toString() {
-		firstElement();
-		String result = "";
-		for (int i = 0; i < size(); i++) {
-			result += get() + " ";
-			setList.goToNext();
-		}
-		return result;
 	}
 
 	@Override
