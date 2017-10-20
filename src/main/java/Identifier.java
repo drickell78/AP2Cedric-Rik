@@ -13,7 +13,7 @@ public class Identifier implements IdentifierInterface {
 	}
 	
 	@Override
-	public boolean equals(String name) {
+	public boolean equals(Object name) {
 		return this.equals(name);
 	}
 }

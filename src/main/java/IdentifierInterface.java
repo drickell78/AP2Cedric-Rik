@@ -1,8 +1,10 @@
 
 interface IdentifierInterface {
     
-    public int hashCode();
+    @Override
+	public int hashCode();
     
-    public boolean equals(String name);
+    @Override
+    public boolean equals(Object name);
     
 }
