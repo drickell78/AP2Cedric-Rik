@@ -132,11 +132,11 @@ public class Main {
                     return hashMap.get(identifier);
                 } else if (hashMap.containsKey(identifier) && in.hasNext()) {
                     if (nextCharIs(in, '+')){
-                        hashMap.get(identifier).union(term(in));
+                        hashMap.get(identifier).union(expression(in, identifier));
                     }else if (nextCharIs(in,'-')){
-                        hashMap.get(identifier).complement(term(in));
+                        hashMap.get(identifier).complement(expression(in, identifier));
                     } else if(nextCharIs(in, '|')){
-                        hashMap.get(identifier).difference(term(in));
+                        hashMap.get(identifier).difference(expression(in, identifier));
                     } else {
                         throw new APException("Invalid input: you are trying to do an invalid operation on a set");
                     }
@@ -148,7 +148,7 @@ public class Main {
                 hashMap.put(id, createSet(in));
             }
         }
-
+        term(in);
         return result;
     }
     
